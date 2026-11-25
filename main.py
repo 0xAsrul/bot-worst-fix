@@ -22,6 +22,13 @@ def main() -> None:
     os.makedirs(os.path.dirname(OUT_PATH), exist_ok=True)
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         f.write(line)
+    # Read the output back and verify it is exactly the intended line.
+    with open(OUT_PATH, "r", encoding="utf-8") as f:
+        written = f.read()
+    if written != line:
+        raise SystemExit(
+            f"verification failed: {OUT_PATH} content does not match the intended entry"
+        )
     print(f"wrote {len(line)} chars to {OUT_PATH}: {line!r}")
 
 
